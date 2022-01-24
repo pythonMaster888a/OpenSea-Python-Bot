@@ -23,8 +23,7 @@ optional arguments:
 
 ```
 
-Finding `--nft` name:
-Visit OpenSea and navigate to the NFT collection homepage. The `--nft` parameter name is as highlighted below in the following screenshot.
+For finding the `--nft` name, visit *OpenSea* and navigate to the NFT collection you want to monitor. The `--nft` parameter name is highlighted below.
 <img src="/images/nft-name.png" alt="NFT Name"/>
 
 
