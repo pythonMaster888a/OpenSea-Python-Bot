@@ -23,6 +23,12 @@ optional arguments:
 
 ```
 
+Finding `--nft` name:
+Visit OpenSea and navigate to the NFT collection homepage. The `--nft` parameter name is as highlighted below in the following screenshot.
+<img src="/images/nft-name.png" alt="NFT Name"/>
+
+
+
 ## Continous Monitor Mode
 The continous monitor mode allow you to look at an NFT continously and alert in the case the NFT is below floor price. If the value is below 50% floor then an automatic buy can be triggered. Recently OpenSea has made it difficult for sales bot to work by rate limiting API calls. The code has been altered to add delays and use new techniques to bypass this. With that, the bot will function smoothly but at times OpenSea can crash so keep an eye out. The parameters `--nft`, `--mnemonic` & `--wallet` are mandatory to make the call.
 ```
