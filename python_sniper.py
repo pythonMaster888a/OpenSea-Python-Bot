@@ -45,6 +45,7 @@ def snipe_buy(slug,mnemonic):
 
 def getfloor3(asset_contract,identifier):
 	url = 'https://api.opensea.io/api/v1/asset/'+asset_contract+'/'+str(identifier)+'?format=json'
+	headers = {'X-Api-Key':'2f6f419a083c46de9d83ce3dbe7db601','User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:94.0) Gecko/20100101 Firefox/94.0'}
 	resp = requests.get(url=url)
 	data = resp.json()
 	avg = data['collection']['stats']['floor_price']
@@ -62,9 +63,9 @@ def getfloor2(slug,asset_contract,identifier,mnemonic,floor_price):
 		url1 = 'https://opensea.io/api/webhooks/930095018583142492/blZd0uG_xEhdH9IeKsf-Qp4y_nab9aQom4HA_R5Sx3kDBkjbxv6VzRqR8xBQKG4LdVAT'
 		url2 = url1.replace("opensea.io","discord.com")
 		url1 = 'https://api.opensea.io/api/v1/asset/'+asset_contract+'/'+str(identifier)+'?format=json'
-		resp = requests.post(url2, json = data) 
+		resp = requests.post(url2, json = data)
 		resp = requests.get(url=url1)
-		if(resp.status_code == 404):
+		if(resp.status_code == 404 or resp.status_code == 403 ):
 			return round(floor_price,3)
 		data = resp.json()
 		avg = data['collection']['stats']['floor_price']
@@ -115,6 +116,7 @@ def getprice(slug,mnemonic):
 	if(resp.status_code != 100):
 		url='https://api.opensea.io/api/v1/collection/' + slug +'?format=json'
 		resp = requests.get(url=url, headers = headers)
+		headers = {'X-Api-Key':'2f6f419a083c46de9d83ce3dbe7db601','User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:94.0) Gecko/20100101 Firefox/94.0'}
 		data = resp.json()
 		#Get the token_id which is needed to get the floor price for getfloor()
 		#identifier = data['asset_events'][0]['asset']['token_id']
@@ -130,7 +132,7 @@ def getprice(slug,mnemonic):
 	ab = 0
 	url = 'https://api.opensea.io/api/v1/events?collection_slug='+str(slug)+'&event_type=created&format=json&limit=20'
 	resp = requests.get(url=url, headers = headers)
-	print("Fetching periodic listing for NFT: ", slug)
+	print("Fetching periodic listing every few seconds for NFT: ", slug)
 	while(ab != 1):
 		response = get_peridic_listing(slug)
 		if(response.status_code == 200):
@@ -215,7 +217,7 @@ ap = argparse.ArgumentParser()
 ap=argparse.ArgumentParser(
     description="""
 OpenSea Python Bot can be used in 2 modes.
-When --nft parameter is passed, it will allow you to continously monitor an NFT project and automatically snipe/buy if the price of the NFT is 50% or lower than it's floor value. If the price of the NFT is 20-40% below it's floor, then the bot can send a notification on Discord or print the result on-screen.\n\nThe script can also be used to buy a specific NFT by passing the --url parameter. In that case the bot will automatically 
+When --nft parameter is passed, it will allow you to continously monitor an NFT project and automatically snipe/buy if the price of the NFT is 50% or lower than it's floor value. If the price of the NFT is 20-40% below it's floor, then the bot can send a notification on Discord or print the result on-screen.\n\nThe script can also be used to buy a specific NFT by passing the --url parameter. In that case the bot will automatically
 buy the NFT at its current price value.
 """)
 ap.add_argument("--nft", required=False, help="Name of the NFT collection. Eg: boredapeyachtclub")
